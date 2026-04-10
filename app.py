@@ -114,11 +114,12 @@ with tab3:
     if st.button("Predict"):
         prob = full_pipeline.predict_proba(input_df)[0][1]
         pred = 1 if prob >= threshold else 0
-
+        benign_prob = 1 - prob
+        malignant_prob = prob
         if pred == 1:
-            st.error(f"⚠️ Malignant | Probability: {prob:.4f}")
+            st.error(f"⚠️ Malignant | Probability: {malignant_prob:.4f}")
         else:
-            st.success(f"✅ Benign | Probability: {prob:.4f}")
+            st.success(f"✅ Benign | Probability: {benign_prob:.4f}")
 
         fig, ax = plt.subplots()
         ax.bar(["Benign", "Malignant"], [1-prob, prob])
